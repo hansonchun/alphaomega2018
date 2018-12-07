@@ -1,0 +1,21 @@
+﻿@using AlphaOmega.Web.Models;
+@model IEnumerable<OrderViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>My Orders</h2>
+
+<table>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>
+                    @order.OrderNumber
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
