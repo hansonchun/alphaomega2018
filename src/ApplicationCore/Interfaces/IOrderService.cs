@@ -1,4 +1,4 @@
-﻿using AlphaOmega.ApplicationCore.Entities.Order;
+﻿using AlphaOmega.ApplicationCore.Entities.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +8,6 @@ namespace AlphaOmega.ApplicationCore.Interfaces
 {
     public interface IOrderService
     {
-        Task CreateOrderAsync(string buyerId, Address shippingAddress, List<OrderItem> items);
+        Task CreateOrder(Order order, Buyer buyer, List<OrderItem> items);
     }
 }

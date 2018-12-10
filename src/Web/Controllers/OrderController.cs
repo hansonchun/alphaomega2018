@@ -7,7 +7,7 @@ using AlphaOmega.Infrastructure.Data;
 using AlphaOmega.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlphaOmega.Web.Controllers.Order
+namespace AlphaOmega.Web.Controllers
 {
     public class OrderController : Controller
     {

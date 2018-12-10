@@ -1,0 +1,82 @@
+﻿@model AlphaOmega.Web.Models.Quotation.Quotation;
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="quoteRequestModal">
+    <div class="modal-dialog" role="form">
+        <div class="modal-content">
+            @using (Html.BeginForm("RequestQuote", "Home", FormMethod.Post))
+            {
+                <div class="modal-header">
+                    <h5 class="modal-title">Request Quote</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body page-1">
+                    <h5>Contact Information</h5>
+                    <div class="form-group">
+                        <label>Full Name: </label>
+                        @Html.TextBoxFor(m => m.FullName, new { Class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Email</label>
+                        @Html.TextBoxFor(m => m.ContactEmail, new { Class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { Class = "form-control" })
+                    </div>
+                    <h5>Shipping Information</h5>
+                    <div class="form-group">
+                        <label>Address</label>
+                        @Html.TextBoxFor(m => m.StreetAddress, new { Class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>City / Town</label>
+                        @Html.TextBoxFor(m => m.City, new { Class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>State / Province / Region</label>
+                        @Html.TextBoxFor(m => m.State, new { Class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        @Html.TextBoxFor(m => m.Country, new { Class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>ZIP / Postal Code</label>
+                        @Html.TextBoxFor(m => m.ZipCode, new { Class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="modal-body page-2" style="display: none">
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        @Html.TextBoxFor(m => m.Supplier, new { Class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Part Number</label>
+                        @Html.TextBoxFor(m => m.Products[0].PartNumber)
+                        <label>Quantity</label>
+                        @Html.DropDownListFor(m => m.Products[0].Quantity, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+                    </div>
+                </div>
+
+                <div class="modal-body page-3" style="display: none">
+                    <div class="form-group">
+                        @Html.TextAreaFor(m => m.Message, new { Class = "form-textarea", Placeholder = "Enter message" })
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <input id="currentPage" type="hidden" value="1" />
+                    <button type="button" id="prevPageBtn" style="display:none">Back</button>
+                    <button type="button" id="nextPageBtn">Next</button>
+                    <button type="submit" id="submitBtn" style="display:none">Submit</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

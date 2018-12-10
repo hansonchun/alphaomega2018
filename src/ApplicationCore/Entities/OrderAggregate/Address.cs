@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AlphaOmega.ApplicationCore.Entities.Order
+namespace AlphaOmega.ApplicationCore.Entities.OrderAggregate
 {
     public class Address
     {
