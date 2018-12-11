@@ -1,4 +1,4 @@
-﻿@model AlphaOmega.Web.Models.Quotation.Quotation;
+﻿@model AlphaOmega.Web.Models.Quotation.QuotationViewModel;
 @{
     Layout = null;
 }
@@ -58,9 +58,9 @@
                     </div>
                     <div class="form-group">
                         <label>Part Number</label>
-                        @Html.TextBoxFor(m => m.Products[0].PartNumber)
+                        @Html.TextBoxFor(m => m.OrderItems[0].PartNumber)
                         <label>Quantity</label>
-                        @Html.DropDownListFor(m => m.Products[0].Quantity, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
+                        @Html.DropDownListFor(m => m.OrderItems[0].Quantity, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))
                     </div>
                 </div>
 

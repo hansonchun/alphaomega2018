@@ -7,5 +7,6 @@ namespace AlphaOmega.ApplicationCore.Interfaces
 {
     public interface IOrderRepository : IRepository<Order> 
     {
+        IEnumerable<Order> ListWithOrderItems();
     }
 }

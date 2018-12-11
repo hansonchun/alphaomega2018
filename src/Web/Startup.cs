@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AlphaOmega.ApplicationCore.Interfaces;
+using AlphaOmega.ApplicationCore.Services;
 using AlphaOmega.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,9 +37,13 @@ namespace AlphaOmega.Web
 
             services.AddDbContext<OrderContext>(o => o.UseMySql(Configuration.GetConnectionString("OrderConnection")));
 
+            // repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IBuyerRepository, BuyerRepository>();
+
+            // services
+            services.AddScoped<IOrderService, OrderService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

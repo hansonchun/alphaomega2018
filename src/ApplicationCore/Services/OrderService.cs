@@ -17,9 +17,9 @@ namespace AlphaOmega.ApplicationCore.Services
             _orderRepository = orderRepository;
         }
 
-        public Task CreateOrder(Order order, Buyer buyer, List<OrderItem> items)
+        public Order CreateOrder(Order order)
         {
-            throw new NotImplementedException();
+            return _orderRepository.Add(order);
         }
     }
 }

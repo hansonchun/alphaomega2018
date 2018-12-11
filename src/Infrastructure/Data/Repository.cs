@@ -10,9 +10,9 @@ namespace AlphaOmega.Infrastructure.Data
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly DbContext _dbContext;
+        private readonly OrderContext _dbContext;
 
-        public Repository(DbContext dbContext)
+        public Repository(OrderContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -23,6 +23,12 @@ namespace AlphaOmega.Infrastructure.Data
             _dbContext.SaveChanges();
 
             return entity;
+        }
+
+        public void AddRange(IEnumerable<T> entities)
+        {
+            _dbContext.Set<T>().AddRange(entities);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(T entity)

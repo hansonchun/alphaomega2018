@@ -13,23 +13,27 @@ namespace AlphaOmega.Infrastructure.Data
         {
         }
 
-        public DbSet<Order> Orders { get; set; }
         public DbSet<Buyer> Buyers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Order>(ConfigureOrder);
             builder.Entity<Buyer>(ConfigureBuyer);
-        }
-
-        private void ConfigureOrder(EntityTypeBuilder<Order> builder)
-        {
-            builder.ToTable("Orders");
+            builder.Entity<Order>(ConfigureOrder);
         }
 
         private void ConfigureBuyer(EntityTypeBuilder<Buyer> builder)
         {
-            builder.ToTable("Buyers");
+            builder.ToTable("buyers");
         }
+
+        private void ConfigureOrder(EntityTypeBuilder<Order> builder)
+        {
+            builder.HasMany(o => o.OrderItems)
+                .WithOne(i => i.Order)
+                .HasForeignKey(o => o.OrderId);
+        }
+
     }
 }
