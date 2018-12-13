@@ -8,6 +8,6 @@ namespace AlphaOmega.ApplicationCore.Interfaces
 {
     public interface IOrderService
     {
-        Order CreateOrder(Order order);
+        Order CreateOrder(int buyerId, List<OrderItem> orderItems);
     }
 }

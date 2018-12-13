@@ -5,15 +5,30 @@ using System.Text;
 
 namespace AlphaOmega.ApplicationCore.Entities.OrderAggregate
 {
-    [Table("orders")]
     public class Order : BaseEntity
     {
+        #region  Constructor
+
+        public Order()
+        {
+        }
+
+        public Order(int buyerId, string orderNumber, List<OrderItem> orderItems)
+        {
+            BuyerId = buyerId;
+            OrderNumber = orderNumber;
+            OrderItems = orderItems;
+        }
+
+        #endregion
+
         public int BuyerId { get; set; }
 
         public string OrderNumber { get; set; }
 
-        public int? Status { get; set; }
+        public OrderStatus Status { get; set; }
 
         public List<OrderItem> OrderItems { get; set; }
     }
+
 }

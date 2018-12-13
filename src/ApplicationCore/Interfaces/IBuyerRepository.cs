@@ -1,4 +1,5 @@
-﻿using AlphaOmega.ApplicationCore.Entities.OrderAggregate;
+﻿using AlphaOmega.ApplicationCore.Entities.BuyerAggregate;
+using AlphaOmega.ApplicationCore.Entities.OrderAggregate;
 using System;
 using System.Collections.Generic;
 using System.Text;

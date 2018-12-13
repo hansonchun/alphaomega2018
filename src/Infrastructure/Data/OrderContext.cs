@@ -1,4 +1,5 @@
-﻿using AlphaOmega.ApplicationCore.Entities.OrderAggregate;
+﻿using AlphaOmega.ApplicationCore.Entities.BuyerAggregate;
+using AlphaOmega.ApplicationCore.Entities.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -14,6 +15,7 @@ namespace AlphaOmega.Infrastructure.Data
         }
 
         public DbSet<Buyer> Buyers { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
@@ -26,6 +28,8 @@ namespace AlphaOmega.Infrastructure.Data
         private void ConfigureBuyer(EntityTypeBuilder<Buyer> builder)
         {
             builder.ToTable("buyers");
+            builder.OwnsOne(b => b.ShippingAddress);
+            builder.OwnsOne(b => b.BillingAddress);
         }
 
         private void ConfigureOrder(EntityTypeBuilder<Order> builder)

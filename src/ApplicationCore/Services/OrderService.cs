@@ -1,4 +1,5 @@
 ﻿using AlphaOmega.ApplicationCore.Entities.OrderAggregate;
+using AlphaOmega.ApplicationCore.Helpers;
 using AlphaOmega.ApplicationCore.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,13 @@ namespace AlphaOmega.ApplicationCore.Services
             _orderRepository = orderRepository;
         }
 
-        public Order CreateOrder(Order order)
+        public Order CreateOrder(int buyerId, List<OrderItem> orderItems)
         {
+            var orderNumber = OrderHelpers.GenerateOrderNumber();
+            var order = new Order(buyerId, orderNumber, orderItems)
+            {
+                Status = OrderStatus.Pending
+            };
             return _orderRepository.Add(order);
         }
     }

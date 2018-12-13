@@ -8,6 +8,7 @@ using AlphaOmega.Web.Models;
 using AlphaOmega.Web.Models.Quotation;
 using AlphaOmega.ApplicationCore.Interfaces;
 using AlphaOmega.ApplicationCore.Entities.OrderAggregate;
+using AlphaOmega.ApplicationCore.Entities.BuyerAggregate;
 
 namespace AlphaOmega.Web.Controllers
 {
@@ -28,30 +29,32 @@ namespace AlphaOmega.Web.Controllers
             return View();
         }
 
-        public void RequestQuote(QuotationViewModel quotation)
+        /// <summary>
+        /// Request new Quotation
+        /// </summary>
+        /// <param name="model"></param>
+        public void RequestQuote(QuotationViewModel model)
         {
-            // TODO - move all this code to the service
             Buyer buyer = new Buyer();
-            if (quotation.BuyerId != null)
+            if (model.BuyerId != null)
             {
                 // retrieve existing buyer
+                buyer = _buyerRepository.GetById(model.BuyerId.Value);
             }
             else
             {
                 // create a new buyer and add it to the db
-                buyer = _buyerRepository.Add(CreateBuyer(quotation));
+                buyer = _buyerRepository.Add(new Buyer(model.FullName, model.ContactEmail, model.PhoneNumber)
+                {
+                    ShippingAddress = new Address(model.StreetAddress, model.City, model.State, model.Country, model.ZipCode),
+                    BillingAddress = new Address(model.StreetAddress, model.City, model.State, model.Country, model.ZipCode)
+                });
             }
 
-            Order order = new Order
-            {
-                BuyerId = buyer.Id,
-                OrderNumber = DateTime.Now.ToString(),
-                OrderItems = quotation.OrderItems.Select(
-                    o => new OrderItem { PartNumber = o.PartNumber, Quantity = o.Quantity })
-                    .ToList()
-            };
+            List<OrderItem> orderItems = model.OrderItems
+                .Select(o => new OrderItem { PartNumber = o.PartNumber, Quantity = o.Quantity }).ToList(); 
 
-            _orderService.CreateOrder(order);
+            _orderService.CreateOrder(buyer.Id, orderItems);
         }
 
         public IActionResult About()
@@ -79,25 +82,5 @@ namespace AlphaOmega.Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        #region Private methods
-
-        private Buyer CreateBuyer(QuotationViewModel quotation)
-        {
-            return new Buyer
-            {
-                FullName = quotation.FullName,
-                Email = quotation.ContactEmail,
-                PhoneNumber = quotation.PhoneNumber,
-                Address = quotation.StreetAddress,
-                City = quotation.City,
-                Country = quotation.Country,
-                State = quotation.State,
-                ZipCode = quotation.ZipCode,
-                Message = quotation.Message
-            };
-
-        }
-
-        #endregion
     }
 }

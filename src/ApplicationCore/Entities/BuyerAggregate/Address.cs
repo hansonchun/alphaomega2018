@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace AlphaOmega.ApplicationCore.Entities.OrderAggregate
+namespace AlphaOmega.ApplicationCore.Entities.BuyerAggregate
 {
     public class Address
     {
